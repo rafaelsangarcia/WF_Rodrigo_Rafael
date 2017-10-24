@@ -33,7 +33,10 @@
 /*============================================================================*/
 /*  Author             |        Version     | Descritpion                     */
 /*----------------------------------------------------------------------------*/
-/*  Rodrigo Mortera     |         61f508b   |                                 */
+/*  Rodrigo Mortera     |         61f508b   | 1.-15 Port definitions (Output Leds, 
+/*						|					|    and input ports of push button)
+/*						|				    | 2.-Prototype funtions for ports, disable 
+/*						|					|    and for enable the timers.   */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
