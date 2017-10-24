@@ -15,7 +15,7 @@ void WDOG_disable (void);
 void Manual_up(void);
 void Manual_down(void);
 void One_Touch_up(void);
-void Validation_button_press();
+void Validation_button_press();z
 int validation_10ms();
 int validation_500ms();
 
@@ -257,7 +257,7 @@ int main(void)
 
 	/*	PTD->PSOR |= 1<<0;//Blue led off
 		PTD->PSOR |= 1<<16;//Green led */
-		
+
 		if(PTC->PDIR & (1<<12)){
 			timer();
 			if(validation_10ms() == 1){
@@ -271,12 +271,12 @@ int main(void)
 				else{
 					if(validation_500ms() == 1){
 							Manual_up();
-						
-					}	
-				}				
-			}	
+
+					}
+				}
+			}
 		}
-		
+
 		else if(PTC->PDIR & (1<<13)){
 			timer();
 			if(validation_10ms() == 1){
@@ -290,20 +290,20 @@ int main(void)
 				else{
 					if(validation_500ms() == 1){
 							Manual_down();
-						
-					}	
-				}				
-			}	
+
+					}
+				}
+			}
 		}
-		
+
 		else {
 			PTD->PSOR |= 1<<0;//Blue led off
 			PTD->PSOR |= 1<<16;//Green led
-			hola = 0;	
+			hola = 0;
 		}
 	}
 }
-			
+
 //			if (PTC->PDIR & (1<<12)){
 //				Validation_button_press();
 //				if (!(PTC->PDIR & (1<<12))){
@@ -564,4 +564,3 @@ void WDOG_disable (void) {
 	WDOG->TOVAL=0x0000FFFF; /*Maximum timeout value*/
 	WDOG->CS = 0x00002100; /*Disable watchdog*/
 }
-
