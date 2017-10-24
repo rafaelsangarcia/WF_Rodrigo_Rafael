@@ -44,12 +44,12 @@
 #ifndef FILENAME_H
 #define FILENAME_H
 //Port Led Define
-#define PTD0 0
-#define PDT15 15
-#define PDT16 16
+#define BlueLed 0
+#define RedLed 15
+#define GreenLed 16
 //Push Button Define
-#define PTDC12 12
-#define PTDC13 13
+#define UpButton 12
+#define DownButton 13
 //Led Bar Define
 #define LedBar_1 7
 #define LedBar_2 17
