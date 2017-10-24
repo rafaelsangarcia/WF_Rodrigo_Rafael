@@ -4,18 +4,17 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: filename.x $
- * $Revision: version $
- * $Author: author $
- * $Date: date $
+ * $Source: GPIO_init.h $
+ * $Revision:  61f508b $
+ * $Author: Rodrigo Mortera $
+ * $Author: Rafael Sanchez $
+
+ * $Date: Oct/10/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
 /** \file
-    short description in one sentence end with dot.
-    detailed
-    multiline
-    description of the file
+    This file is to init the GPIO ports, watchdog, and timers
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -32,9 +31,9 @@
 /*============================================================================*/
 /*                    REUSE HISTORY - taken over from                         */
 /*============================================================================*/
-/*  DATABASE           |        PROJECT     | FILE VERSION (AND INSTANCE)     */
+/*  Author             |        Version     | Descritpion                     */
 /*----------------------------------------------------------------------------*/
-/*                     |                    |                                 */
+/*  Rodrigo Mortera     |         61f508b   |                                 */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
