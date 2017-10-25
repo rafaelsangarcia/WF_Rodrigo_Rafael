@@ -92,12 +92,12 @@
 /* Exported functions */
 void timer () {
 	while (0 == (LPIT0->MSR & LPIT_MSR_TIF1_MASK)) {}
-	(switch_flag)++;
+	(lpit0_ch1_flag_counter)++;
 	LPIT0->MSR |= LPIT_MSR_TIF1_MASK;
 }
 
 int validation_10ms() {
-	if (switch_flag >= 10) {
+	if (lpit0_ch1_flag_counter >= 10) {
 		return 1;
 	}
 	else {
@@ -106,7 +106,7 @@ int validation_10ms() {
 }
 
 int validation_500ms() {
-	if (switch_flag >= 500) {
+	if (lpit0_ch1_flag_counter >= 500) {
 		return 1;
 	}
 	else {
@@ -116,7 +116,7 @@ int validation_500ms() {
 
 void Manual_up(void) {
 	PTD->PCOR |= 1<< 0;//Blue led on
-	PTD->PSOR |= 1<< 15; /* Green Led off */
+	PTD->PSOR |= 1<< 16; /* Green Led off */
 	if (switch_flag<9) {
 		(switch_flag)++;
 		}
@@ -197,7 +197,7 @@ void Manual_up(void) {
 
 void Manual_down(void) {
 	PTD->PSOR |= 1<<0;//Blue led off
-	PTD->PCOR |= 1<<15; /*Green Led On*/
+	PTD->PCOR |= 1<<16; /*Green Led On*/
 	switch (switch_flag) {
 		case 9:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */

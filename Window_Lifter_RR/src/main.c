@@ -303,8 +303,8 @@ int main(void)
 		}
 
 		else {
-			PTD->PSOR |= 1<<BlueLed;//Blue led off
-			PTD->PSOR |= 1<<GreenLed;//Green led
+			PTD->PSOR |= 1<<0;//Blue led off
+			PTD->PSOR |= 1<<16;//Green led
 			lpit0_ch1_flag_counter = 0;
 		}
 	}
