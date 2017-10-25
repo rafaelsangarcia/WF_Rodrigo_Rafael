@@ -1,5 +1,8 @@
 //TESTED
-#include "HAL/Win_Mov.h"
+//#include "MAL/GPIO_init.h"
+//#include "HAL/Win_Mov.h"
+#include "APP/Up_Down.h"
+
 
 extern int switch_flag;
 extern int lpit0_ch0_flag_counter;
@@ -28,13 +31,14 @@ int main(void)
 	lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 	clear_GPIO(); //clear PORTS
 
+
 	for (;;) {
 	/*	PTD->PSOR |= 1<<0;//Blue led off
 		PTD->PSOR |= 1<<16;//Green led */
-		if(PTC->PDIR & (1<<UpButton)){
+		if(Push_UpButton() == 1){
 			timer();
 			if(validation_10ms() == 1){
-				if( !(PTC->PDIR & (1<<UpButton)) ){ //up_off
+				if( Push_UpButton() == 0 ){ //up_off
 					if(validation_500ms() == 0){
 						while(switch_flag < 9){
 							Manual_up();
@@ -48,10 +52,10 @@ int main(void)
 				}
 			}
 		}
-		else if(PTC->PDIR & (1<<DownButton)){
+		else if(Push_DownButton() == 1){
 			timer();
 			if(validation_10ms() == 1){
-				if( !(PTC->PDIR & (1<<DownButton)) ){ //up_off
+				if( Push_DownButton() == 0 ){ //up_off
 					if(validation_500ms() == 0){
 						while(switch_flag >=0){
 							Manual_down();

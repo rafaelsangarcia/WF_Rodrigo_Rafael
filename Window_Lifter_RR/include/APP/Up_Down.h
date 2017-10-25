@@ -64,6 +64,8 @@
 /* Exported functions prototypes */
 void Manual_up();
 void Manual_Down();
+int Push_UpButton();
+int Push_DownButton();
 
 
 /*============================================================================*/

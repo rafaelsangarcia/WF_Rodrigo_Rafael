@@ -43,6 +43,8 @@
 
   ============================================================================*/
 #include "APP/Up_Down.h"
+#include "HAL/Win_Mov.h"
+
 /* Includes */
 /*============================================================================*/
 
@@ -264,20 +266,23 @@ void Manual_down() {
 		switch_flag--;
 	}
 }
-// int Push_UpButton(){
-// 	if(Validate_UpButton()){
-// 		return 1;
-// 	}
-// 	else{
-// 		return 0;
-// 	}
-// }
-// int Push_DownButton(){
-// 	if(Validate_DownButton()){
-// 		return 1;
-// 	}
-// 	else{
-// 		return 0;
-// 	}
-// }
+int Push_UpButton(){
+	if(Validate_UpButton()){
+		return 1;
+	}
+	else{
+		return 0;
+	}
+}
+int Push_DownButton(){
+	if(Validate_DownButton()){
+		return 1;
+	}
+	else{
+		return 0;
+	}
+}
+
+
+
  /* Notice: the file ends with a blank new line to avoid compiler warnings */

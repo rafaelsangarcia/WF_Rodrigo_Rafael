@@ -44,6 +44,7 @@
 /* Includes */
 
 #include "HAL/Win_Mov.h"
+#include "MAL/GPIO_init.h"
 
 /*============================================================================*/
 /* Constants and types  */
@@ -396,6 +397,22 @@ void Toggle_LedBar_10(int status){
 	else {
 		PTE->PCOR |= 1<<LedBar_10;
 	}
+}
+int Validate_UpButton(){
+	if(PTC->PDIR & (1<<UpButton)){
+			return 1;
+		}
+		else{
+			return 0;
+		}
+}
+int Validate_DownButton(){
+	if(PTC->PDIR & (1<<DownButton)){
+			return 1;
+		}
+		else{
+			return 0;
+		}
 }
 
 /*============================================================================*/

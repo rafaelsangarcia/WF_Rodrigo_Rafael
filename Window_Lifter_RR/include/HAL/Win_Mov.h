@@ -85,19 +85,20 @@ void clear_GPIO();
 int validation_10ms();
 int validation_500ms();
 void init_primary_function();
-void Toggle_BlueLed(int status);
-void Toggle_GreenLed(int status);
-void Toggle_LedBar_1(int status);
-void Toggle_LedBar_2(int status);
-void Toggle_LedBar_3(int status);
-void Toggle_LedBar_4(int status);
-void Toggle_LedBar_5(int status);
-void Toggle_LedBar_6(int status);
-void Toggle_LedBar_7(int status);
-void Toggle_LedBar_8(int status);
-void Toggle_LedBar_9(int status);
-void Toggle_LedBar_10(int status);
-
+void Toggle_BlueLed(int);
+void Toggle_GreenLed(int);
+void Toggle_LedBar_1(int);
+void Toggle_LedBar_2(int);
+void Toggle_LedBar_3(int);
+void Toggle_LedBar_4(int);
+void Toggle_LedBar_5(int);
+void Toggle_LedBar_6(int);
+void Toggle_LedBar_7(int);
+void Toggle_LedBar_8(int);
+void Toggle_LedBar_9(int);
+void Toggle_LedBar_10(int);
+int Validate_UpButton();
+int Validate_DownButton();
 /*============================================================================*/
 
 #endif  /* Notice: the file ends with a blank new line to avoid compiler warnings */
