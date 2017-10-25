@@ -4,17 +4,18 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: GPIO_init.h $
- * $Revision:  61f508b $
- * $Author: Rodrigo Mortera $
- * $Author: Rafael Sanchez $
-
- * $Date: Oct/10/2017 $
+ * $Source: filename.x $
+ * $Revision: version $
+ * $Author: author $
+ * $Date: date $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
 /** \file
-    This file is to init the GPIO ports, watchdog, and timers
+    short description in one sentence end with dot.
+    detailed
+    multiline
+    description of the file
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -31,58 +32,45 @@
 /*============================================================================*/
 /*                    REUSE HISTORY - taken over from                         */
 /*============================================================================*/
-/*  Author             |        Version     | Descritpion                     */
+/*  DATABASE           |        PROJECT     | FILE VERSION (AND INSTANCE)     */
 /*----------------------------------------------------------------------------*/
-/*  Rodrigo Mortera     |         61f508b   | 1.-15 Port definitions (Output Leds,and input ports of push button) */
-/*						|				    | 2.-Prototype funtions for ports, disable and for enable the timers.   */
+/*                     |                    |                                 */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
  * $Log: filename.h  $
   ============================================================================*/
-
 #ifndef FILENAME_H
 #define FILENAME_H
-//Port Led Define
-#define BlueLed 0
-#define RedLed 15
-#define GreenLed 16
-//Push Button Define
-#define UpButton 12
-#define DownButton 13
-//Led Bar Define
-#define LedBar_1 7
-#define LedBar_2 17
-#define LedBar_3 14
-#define LedBar_4 15
-#define LedBar_5 16
-#define LedBar_6 14
-#define LedBar_7 3
-#define LedBar_8 16
-#define LedBar_9 15
-#define LedBar_10 14
 
+/*typedef unsigned int u32_t;//hola=Lpit0_ch1, contador, Lpit0_ch0
+typedef int s32_t;//counter*/
 /* Includes */
 #include "S32K144.h"
 #include "clocks.h"
-
-
+#include "MAL/GPIO_init.h"
 /*============================================================================*/
-/* Constants and types */
-/*typedef unsigned int u32_t;//hola=Lpit0_ch1, contador, Lpit0_ch0
-typedef signed int 32_t;//counter*/
 
+
+/* Constants and types */
 /*============================================================================*/
 
 
 /* Exported Variables */
 /*============================================================================*/
+int lpit0_ch0_flag_counter = 0;
+int switch_flag = -1;
+int lpit0_ch1_flag_counter = 0;
 
 
 /* Exported functions prototypes */
-void PORT_init (void);
-void WDOG_disable (void);
-void LPIT0_init (void);
+void Manual_up();
+void Manual_down();
+void timer();
+int validation_10ms();
+int validation_500ms();
+
 /*============================================================================*/
+
 #endif  /* Notice: the file ends with a blank new line to avoid compiler warnings */

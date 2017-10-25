@@ -35,8 +35,8 @@
 /*  Author                          |       Version     | Description         */
 /*----------------------------------------------------------------------------*/
 /* Rodrigo		                    | 61f508b        |   1.-Added GPIO_init library */
-/*									|				 |   2.-Added  for ports, disable 
-/*									|			   	 |   and for enabling the timer funtions   */
+/*									|				 |   2.-Added  for ports, disable */
+/*									|			   	 |   and for enabling the timer functions   */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -47,6 +47,7 @@
 /* Includes */
 /*============================================================================*/
 #include "MAL/GPIO_init.h"
+#include "clocks.h"
 
 
 /* Constants and types  */
