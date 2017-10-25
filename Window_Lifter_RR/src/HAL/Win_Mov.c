@@ -50,24 +50,24 @@
 /* Constants and types  */
 /*============================================================================*/
 /* Variables */
-int lpit0_ch1_flag_counter = 0;
+//int lpit0_ch1_flag_counter = 0;
 //int lpit0_ch0_flag_counter = 0;
 //int switch_flag = -1;
 /*============================================================================*/
 /* Private functions prototypes */
-void primary_function();
+//void primary_function();
 /*============================================================================*/
 /* Inline functions */
 /*============================================================================*/
 /* Private functions */
-void primary_function(){
-	WDOG_disable();
-	PORT_init();
-	SOSC_init_8MHz(); /* Initialize system oscillator for 8 MHz xtal */
-	SPLL_init_160MHz(); /* Initialize sysclk to 160 MHz with 8 MHz SOSC */
-	NormalRUNmode_80MHz();
-	LPIT0_init();
-}
+// void primary_function(){
+// 	WDOG_disable();
+// 	PORT_init();
+// 	SOSC_init_8MHz(); /* Initialize system oscillator for 8 MHz xtal */
+// 	SPLL_init_160MHz(); /* Initialize sysclk to 160 MHz with 8 MHz SOSC */
+// 	NormalRUNmode_80MHz();
+// 	LPIT0_init();
+// }
 /*============================================================================*/
 
 /** Check if action is allowed by overload protection.
@@ -86,29 +86,29 @@ void primary_function(){
 
 
 /* Exported functions */
-void timer () {
-	while (0 == (LPIT0->MSR & LPIT_MSR_TIF1_MASK)) {}
-	(lpit0_ch1_flag_counter)++;
-	LPIT0->MSR |= LPIT_MSR_TIF1_MASK;
-}
+// void timer () {
+// 	while (0 == (LPIT0->MSR & LPIT_MSR_TIF1_MASK)) {}
+// 	(lpit0_ch1_flag_counter)++;
+// 	LPIT0->MSR |= LPIT_MSR_TIF1_MASK;
+// }
 
-int validation_10ms() {
-	if (lpit0_ch1_flag_counter >= 10) {
-		return 1;
-	}
-	else {
-		return 0;
-	}
-}
+// int validation_10ms() {
+// 	if (lpit0_ch1_flag_counter >= 10) {
+// 		return 1;
+// 	}
+// 	else {
+// 		return 0;
+// 	}
+// }
 
-int validation_500ms() {
-	if (lpit0_ch1_flag_counter >= 500) {
-		return 1;
-	}
-	else {
-		return 0;
-	}
-}
+// int validation_500ms() {
+// 	if (lpit0_ch1_flag_counter >= 500) {
+// 		return 1;
+// 	}
+// 	else {
+// 		return 0;
+// 	}
+// }
 
 // void Manual_up() {
 // 	PTD->PCOR |= 1<< BlueLed;//Blue led on
@@ -275,25 +275,26 @@ int validation_500ms() {
 // 	}
 // }
 
-void clear_GPIO() {
-	PTD->PSOR |= 1<<BlueLed; /*  turning off BLUE LED */
-	PTD->PSOR |= 1<<RedLed; /* turning off RED LED */
-	PTD->PSOR |= 1<<GreenLed; /* turning off GREEN LED */
-	PTC->PCOR |= 1<<LedBar_1;/*Turning off the Port 7*/
-	PTC->PCOR |= 1<<LedBar_2;
-	PTC->PCOR |= 1<<LedBar_3;
-	PTB->PCOR |= 1<<LedBar_4;
-	PTB->PCOR |= 1<<LedBar_5;
-	PTB->PCOR |= 1<<LedBar_6;
-	PTB->PCOR |= 1<<LedBar_7;
-	PTE->PCOR |= 1<<LedBar_8;
-	PTE->PCOR |= 1<<LedBar_9;
-	PTE->PCOR |= 1<<LedBar_10;
-}
+// void clear_GPIO() {
+// 	PTD->PSOR |= 1<<BlueLed; /*  turning off BLUE LED */
+// 	PTD->PSOR |= 1<<RedLed; /* turning off RED LED */
+// 	PTD->PSOR |= 1<<GreenLed; /* turning off GREEN LED */
+// 	PTC->PCOR |= 1<<LedBar_1;/*Turning off the Port 7*/
+// 	PTC->PCOR |= 1<<LedBar_2;
+// 	PTC->PCOR |= 1<<LedBar_3;
+// 	PTB->PCOR |= 1<<LedBar_4;
+// 	PTB->PCOR |= 1<<LedBar_5;
+// 	PTB->PCOR |= 1<<LedBar_6;
+// 	PTB->PCOR |= 1<<LedBar_7;
+// 	PTE->PCOR |= 1<<LedBar_8;
+// 	PTE->PCOR |= 1<<LedBar_9;
+// 	PTE->PCOR |= 1<<LedBar_10;
+// }
 
-void init_primary_function(){
-	primary_function();
-}
+
+// void init_primary_function(){
+// 	primary_function();
+// }
 void Toggle_BlueLed(int status){
 	if (status == 1) {
 		PTD->PCOR |= 1<< BlueLed;

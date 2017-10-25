@@ -20,13 +20,13 @@ int main(void)
 #endif
 	/*** End of Processor Expert internal initialization.                    ***/
 
-	init_primary_function();
-	//WDOG_disable();
-	//PORT_init(); /* Configure ports */
-	//SOSC_init_8MHz(); /* Initialize system oscillator for 8 MHz xtal */
-	//SPLL_init_160MHz(); /* Initialize sysclk to 160 MHz with 8 MHz SOSC */
-	//NormalRUNmode_80MHz(); /* Init clocks: 80 MHz sysclk & core, 40 MHz bus, 20 MHz flash */
-	//LPIT0_init(); /* Initialize PIT0 for 1 second timeout */
+	//init_primary_function();
+	WDOG_disable();
+	PORT_init(); /* Configure ports */
+	SOSC_init_8MHz(); /* Initialize system oscillator for 8 MHz xtal */
+	SPLL_init_160MHz(); /* Initialize sysclk to 160 MHz with 8 MHz SOSC */
+	NormalRUNmode_80MHz(); /* Init clocks: 80 MHz sysclk & core, 40 MHz bus, 20 MHz flash */
+	LPIT0_init(); /* Initialize PIT0 for 1 second timeout */
 
 	lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 	clear_GPIO(); //clear PORTS

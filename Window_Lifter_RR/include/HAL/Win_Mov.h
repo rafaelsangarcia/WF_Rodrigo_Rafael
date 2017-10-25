@@ -80,10 +80,10 @@ typedef int s32_t;//counter*/
 //void Manual_up();
 //void Manual_down();
 
-void timer();
-void clear_GPIO();
-int validation_10ms();
-int validation_500ms();
+//void timer();
+//void clear_GPIO();
+//int validation_10ms();
+//int validation_500ms();
 void init_primary_function();
 void Toggle_BlueLed(int);
 void Toggle_GreenLed(int);
