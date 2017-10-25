@@ -6,16 +6,15 @@
 /*!
  * $Source: filename.c $
  * $Revision: version $
- * $Author: author $
- * $Date: date $
+ * $Author: Rafael Sanchez $
+ * $Author: Rodrigo Mortera $
+ * $Date: 24/10/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
 /** \file
-    short description in one sentence end with dot.
-    detailed
-    multiline
-    description of the file
+    In this Win_Mov.c file, there are the function Timer, validation_10ms,
+		validation_500ms, Manual_up and Manual_down.
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -32,9 +31,9 @@
 /*============================================================================*/
 /*                    REUSE HISTORY - taken over from                         */
 /*============================================================================*/
-/*  DATABASE           |        PROJECT     | FILE VERSION (AND INSTANCE)     */
+/*  Author         	   |        Version     | Descritpion											*/
 /*----------------------------------------------------------------------------*/
-/*                     |                    |                                 */
+/*    Rafael Sanchez   |     e22ee1c (v2)   |   Create the functions          */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -49,28 +48,14 @@
 #include "MAL/GPIO_init.h"
 
 /*============================================================================*/
-
-
-
 /* Constants and types  */
 /*============================================================================*/
-
-
-
 /* Variables */
 /*============================================================================*/
-
 /* Private functions prototypes */
 /*============================================================================*/
-
-
-
 /* Inline functions */
 /*============================================================================*/
-
-
-
-
 /* Private functions */
 /*============================================================================*/
 
@@ -114,7 +99,7 @@ int validation_500ms() {
 	}
 }
 
-void Manual_up(void) {
+void Manual_up() {
 	PTD->PCOR |= 1<< 0;//Blue led on
 	PTD->PSOR |= 1<< 16; /* Green Led off */
 	if (switch_flag<9) {
@@ -195,7 +180,7 @@ void Manual_up(void) {
 		}
 }
 
-void Manual_down(void) {
+void Manual_down() {
 	PTD->PSOR |= 1<<0;//Blue led off
 	PTD->PCOR |= 1<<16; /*Green Led On*/
 	switch (switch_flag) {
@@ -279,12 +264,20 @@ void Manual_down(void) {
 	}
 }
 
-
-
-
-
+void clear_GPIO() {
+	PTD->PSOR |= 1<<0; /*  turning off BLUE LED */
+	PTD->PSOR |= 1<<15; /* turning off RED LED */
+	PTD->PSOR |= 1<<16; /* turning off GREEN LED */
+	PTC->PCOR |= 1<<7;/*Turning off the Port 7*/
+	PTC->PCOR |= 1<<14;
+	PTC->PCOR |= 1<<3;
+	PTB->PCOR |= 1<<17;
+	PTB->PCOR |= 1<<14;
+	PTB->PCOR |= 1<<15;
+	PTB->PCOR |= 1<<16;
+	PTE->PCOR |= 1<<15;
+	PTE->PCOR |= 1<<16;
+	PTE->PCOR |= 1<<14;
+}
 /*============================================================================*/
-
-
-
  /* Notice: the file ends with a blank new line to avoid compiler warnings */

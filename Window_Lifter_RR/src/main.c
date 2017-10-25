@@ -24,7 +24,6 @@ extern int lpit0_ch1_flag_counter;
 // int validation_10ms();
 // int validation_500ms();
 
-
 // void Validation_button_press() { //general function for validate
 // while (0 == (LPIT0->MSR & LPIT_MSR_TIF1_MASK)) {}
 // 	hola++;
@@ -222,9 +221,6 @@ extern int lpit0_ch1_flag_counter;
 
 int main(void)
 {
-	/* Write your code here */
-	/* Write your local variable definition here */
-
 	/*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
 #ifdef PEX_RTOS_INIT
 	PEX_RTOS_INIT();                   /* Initialization of the selected RTOS. Macro is defined by the RTOS component. */
@@ -238,32 +234,12 @@ int main(void)
 	NormalRUNmode_80MHz(); /* Init clocks: 80 MHz sysclk & core, 40 MHz bus, 20 MHz flash */
 	LPIT0_init(); /* Initialize PIT0 for 1 second timeout */
 
-
-		 /* Wait for LPIT0 CH0 Flag */
-
 	lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-	PTD->PSOR |= 1<<0; /*  turning off BLUE LED */
-	PTD->PSOR |= 1<<15; /* turning off RED LED */
-	PTD->PSOR |= 1<<16; /* turning off GREEN LED */
-	PTC->PCOR |= 1<<7;/*Turning off the Port 7*/
-	PTC->PCOR |= 1<<14;
-	PTC->PCOR |= 1<<3;
-	PTB->PCOR |= 1<<17;
-	PTB->PCOR |= 1<<14;
-	PTB->PCOR |= 1<<15;
-	PTB->PCOR |= 1<<16;
-	PTE->PCOR |= 1<<15;
-	PTE->PCOR |= 1<<16;
-	PTE->PCOR |= 1<<14;
-
-
-	 /* Clear LPIT0 timer flag 0 */
+	clear_GPIO(); //clear PORTS
 
 	for (;;) {
-
 	/*	PTD->PSOR |= 1<<0;//Blue led off
 		PTD->PSOR |= 1<<16;//Green led */
-
 		if(PTC->PDIR & (1<<UpButton)){
 			timer();
 			if(validation_10ms() == 1){
@@ -277,12 +253,10 @@ int main(void)
 				else{
 					if(validation_500ms() == 1){
 							Manual_up();
-
 					}
 				}
 			}
 		}
-
 		else if(PTC->PDIR & (1<<DownButton)){
 			timer();
 			if(validation_10ms() == 1){
@@ -296,12 +270,10 @@ int main(void)
 				else{
 					if(validation_500ms() == 1){
 							Manual_down();
-
 					}
 				}
 			}
 		}
-
 		else {
 			PTD->PSOR |= 1<<0;//Blue led off
 			PTD->PSOR |= 1<<16;//Green led
@@ -309,10 +281,6 @@ int main(void)
 		}
 	}
 }
-
-
-
-
 //void PORT_init (void) {/*Initializing the PORTS*/
 //	PCC-> PCCn[PCC_PORTD_INDEX] = PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */
 //	PCC-> PCCn[PCC_PORTC_INDEX] = PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */

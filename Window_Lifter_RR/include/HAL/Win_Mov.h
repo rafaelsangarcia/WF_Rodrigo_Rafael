@@ -4,18 +4,17 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: filename.x $
- * $Revision: version $
- * $Author: author $
- * $Date: date $
+* $Source: filename.c $
+* $Revision: version $
+* $Author: Rafael Sanchez $
+* $Author: Rodrigo Mortera $
+* $Date: 24/10/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
 /** \file
-    short description in one sentence end with dot.
-    detailed
-    multiline
-    description of the file
+    In this Win_Mov.h file, there are the prototypes function Timer, validation_10ms,
+    validation_500ms, Manual_up and Manual_down.
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -32,9 +31,9 @@
 /*============================================================================*/
 /*                    REUSE HISTORY - taken over from                         */
 /*============================================================================*/
-/*  DATABASE           |        PROJECT     | FILE VERSION (AND INSTANCE)     */
+/*  Author         	   |        Version     | Descritpion											*/
 /*----------------------------------------------------------------------------*/
-/*                     |                    |                                 */
+/*    Rafael Sanchez   |     e22ee1c (v2)   |  Create the Prototypes functions*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -51,23 +50,20 @@ typedef int s32_t;//counter*/
 #include "clocks.h"
 #include "MAL/GPIO_init.h"
 /*============================================================================*/
-
-
 /* Constants and types */
 /*============================================================================*/
-
-
 /* Exported Variables */
 /*============================================================================*/
 int lpit0_ch0_flag_counter = 0;
 int switch_flag = -1;
 int lpit0_ch1_flag_counter = 0;
-
-
+/*============================================================================*/
 /* Exported functions prototypes */
+/*============================================================================*/
 void Manual_up();
 void Manual_down();
 void timer();
+void clear_GPIO();
 int validation_10ms();
 int validation_500ms();
 

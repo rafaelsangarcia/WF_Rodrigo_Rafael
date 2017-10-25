@@ -66,20 +66,13 @@
 /* Includes */
 #include "S32K144.h"
 #include "clocks.h"
-
-
 /*============================================================================*/
 /* Constants and types */
 /*typedef unsigned int u32_t;//hola=Lpit0_ch1, contador, Lpit0_ch0
 typedef signed int 32_t;//counter*/
-
 /*============================================================================*/
-
-
 /* Exported Variables */
 /*============================================================================*/
-
-
 /* Exported functions prototypes */
 void PORT_init (void);
 void WDOG_disable (void);
