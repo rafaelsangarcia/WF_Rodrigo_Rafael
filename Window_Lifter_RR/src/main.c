@@ -8,7 +8,6 @@ extern int lpit0_ch1_flag_counter;
 //volatile int exit_code = 0;
 // int lpit0_ch0_flag_counter = 0; /* LPIT0 timeout counter */
 
-
 int main(void)
 {
 	/*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
