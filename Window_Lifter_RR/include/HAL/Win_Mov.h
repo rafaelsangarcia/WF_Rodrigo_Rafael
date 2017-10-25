@@ -40,23 +40,40 @@
 /*
  * $Log: filename.h  $
   ============================================================================*/
-#ifndef FILENAME_H
-#define FILENAME_H
 
 /*typedef unsigned int u32_t;//hola=Lpit0_ch1, contador, Lpit0_ch0
 typedef int s32_t;//counter*/
 /* Includes */
-#include "S32K144.h"
-#include "clocks.h"
+
 #include "MAL/GPIO_init.h"
+
+#ifndef FILENAME_H
+#define FILENAME_H
+#define BlueLed 0
+#define RedLed 15
+#define GreenLed 16
+//Push Button Define
+#define UpButton 12
+#define DownButton 13
+//Led Bar Define
+#define LedBar_1 7
+#define LedBar_2 17
+#define LedBar_3 14
+#define LedBar_4 15
+#define LedBar_5 16
+#define LedBar_6 14
+#define LedBar_7 3
+#define LedBar_8 16
+#define LedBar_9 15
+#define LedBar_10 14
 /*============================================================================*/
 /* Constants and types */
 /*============================================================================*/
 /* Exported Variables */
 /*============================================================================*/
-int lpit0_ch0_flag_counter = 0;
-int switch_flag = -1;
-int lpit0_ch1_flag_counter = 0;
+//int lpit0_ch0_flag_counter;
+//int switch_flag;
+//int lpit0_ch1_flag_counter;
 /*============================================================================*/
 /* Exported functions prototypes */
 /*============================================================================*/
@@ -66,6 +83,7 @@ void timer();
 void clear_GPIO();
 int validation_10ms();
 int validation_500ms();
+void init_primary_function();
 
 /*============================================================================*/
 

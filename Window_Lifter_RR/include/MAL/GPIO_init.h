@@ -42,6 +42,12 @@
  * $Log: filename.h  $
   ============================================================================*/
 
+
+
+/* Includes */
+#include "S32K144.h"
+#include "clocks.h"
+
 #ifndef FILENAME_H
 #define FILENAME_H
 //Port Led Define
@@ -62,10 +68,6 @@
 #define LedBar_8 16
 #define LedBar_9 15
 #define LedBar_10 14
-
-/* Includes */
-#include "S32K144.h"
-#include "clocks.h"
 /*============================================================================*/
 /* Constants and types */
 /*typedef unsigned int u32_t;//hola=Lpit0_ch1, contador, Lpit0_ch0

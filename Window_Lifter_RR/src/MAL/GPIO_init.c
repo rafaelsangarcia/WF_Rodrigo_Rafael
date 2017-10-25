@@ -47,7 +47,7 @@
 /* Includes */
 /*============================================================================*/
 #include "MAL/GPIO_init.h"
-#include "clocks.h"
+
 
 
 /* Constants and types  */
@@ -138,7 +138,7 @@ void LPIT0_init (void) {
 	LPIT0->TMR[1].TVAL = 40000;//40000= 1 ms
 	LPIT0->TMR[0].TCTRL = 0x00000001; // Timer 0 is enabled
 	LPIT0->TMR[1].TCTRL = 0x00000101;//Timer 1 is enabled
-									
+
 }
 
 void WDOG_disable (void) {

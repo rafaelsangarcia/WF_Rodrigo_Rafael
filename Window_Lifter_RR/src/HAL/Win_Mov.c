@@ -42,21 +42,31 @@
   ============================================================================*/
 
 /* Includes */
-#include "S32K144.h"
-#include "clocks.h"
+
 #include "HAL/Win_Mov.h"
-#include "MAL/GPIO_init.h"
 
 /*============================================================================*/
 /* Constants and types  */
 /*============================================================================*/
 /* Variables */
+int lpit0_ch1_flag_counter = 0;
+int lpit0_ch0_flag_counter = 0;
+int switch_flag = -1;
 /*============================================================================*/
 /* Private functions prototypes */
+void primary_function();
 /*============================================================================*/
 /* Inline functions */
 /*============================================================================*/
 /* Private functions */
+void primary_function(){
+	WDOG_disable();
+	PORT_init();
+	SOSC_init_8MHz(); /* Initialize system oscillator for 8 MHz xtal */
+	SPLL_init_160MHz(); /* Initialize sysclk to 160 MHz with 8 MHz SOSC */
+	NormalRUNmode_80MHz();
+	LPIT0_init();
+}
 /*============================================================================*/
 
 /** Check if action is allowed by overload protection.
@@ -100,8 +110,8 @@ int validation_500ms() {
 }
 
 void Manual_up() {
-	PTD->PCOR |= 1<< 0;//Blue led on
-	PTD->PSOR |= 1<< 16; /* Green Led off */
+	PTD->PCOR |= 1<< BlueLed;//Blue led on
+	PTD->PSOR |= 1<< GreenLed; /* Green Led off */
 	if (switch_flag<9) {
 		(switch_flag)++;
 		}
@@ -109,21 +119,21 @@ void Manual_up() {
 		case 0:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTC->PSOR |= 1<<7;
+			PTC->PSOR |= 1<<LedBar_1;
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 1:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTB->PSOR |= 1<<17; /* Toggle output on port D0 (blue LED) */
+			PTB->PSOR |= 1<<LedBar_2; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 2:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTB->PSOR |= 1<<14; /* Toggle output on port D0 (blue LED) */
+			PTB->PSOR |= 1<<LedBar_3; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
@@ -131,42 +141,42 @@ void Manual_up() {
 
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTB->PSOR |= 1<<15; /* Toggle output on port D0 (blue LED) */
+			PTB->PSOR |= 1<<LedBar_4; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 4:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTB->PSOR |= 1<<16; /* Toggle output on port D0 (blue LED) */
+			PTB->PSOR |= 1<<LedBar_5; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 5:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTC->PSOR |= 1<<14; /* Toggle output on port D0 (blue LED) */
+			PTC->PSOR |= 1<<LedBar_6; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 6:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTC->PSOR |= 1<<3; /* Toggle output on port D0 (blue LED) */
+			PTC->PSOR |= 1<<LedBar_7; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 7:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTE->PSOR |= 1<<16; /* Toggle output on port D0 (blue LED) */
+			PTE->PSOR |= 1<<LedBar_8; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 8:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTE->PSOR |= 1<<15; /* Toggle output on port D0 (blue LED) */
+			PTE->PSOR |= 1<<LedBar_9; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
@@ -174,76 +184,76 @@ void Manual_up() {
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 			PTD->PSOR |= 1<<0; /* Toggle output on port D0 (blue LED) */
-			PTE->PSOR |= 1<<14; /* Toggle output on port D0 (blue LED) */
+			PTE->PSOR |= 1<<LedBar_10; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 		}
 }
 
 void Manual_down() {
-	PTD->PSOR |= 1<<0;//Blue led off
-	PTD->PCOR |= 1<<16; /*Green Led On*/
+	PTD->PSOR |= 1<<BlueLed;//Blue led off
+	PTD->PCOR |= 1<<GreenLed; /*Green Led On*/
 	switch (switch_flag) {
 		case 9:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTE->PCOR |= 1<<14; /* Toggle output on port D0 (blue LED) */
+			PTE->PCOR |= 1<<LedBar_10; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 8:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTE->PCOR |= 1<<15; /* Toggle output on port D0 (blue LED) */
+			PTE->PCOR |= 1<<LedBar_9; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 7:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTE->PCOR |= 1<<16; /* Toggle output on port D0 (blue LED) */
+			PTE->PCOR |= 1<<LedBar_8; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 6:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTC->PCOR |= 1<<3; /* Toggle output on port D0 (blue LED) */
+			PTC->PCOR |= 1<<LedBar_7; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 5:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTC->PCOR |= 1<<14; /* Toggle output on port D0 (blue LED) */
+			PTC->PCOR |= 1<<LedBar_6; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 4:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTB->PCOR |= 1<<16; /* Toggle output on port D0 (blue LED) */
+			PTB->PCOR |= 1<<LedBar_5; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 3:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTB->PCOR |= 1<<15; /* Toggle output on port D0 (blue LED) */
+			PTB->PCOR |= 1<<LedBar_4; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 2:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTB->PCOR |= 1<<14; /* Toggle output on port D0 (blue LED) */
+			PTB->PCOR |= 1<<LedBar_3; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 1:
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			PTB->PCOR |= 1<<17; /* Toggle output on port D0 (blue LED) */
+			PTB->PCOR |= 1<<LedBar_2; /* Toggle output on port D0 (blue LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
@@ -251,7 +261,7 @@ void Manual_down() {
 			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
 			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 			//PTD->PSOR |= 1<<16; /* Toggle output on port D16 (green LED) */
-			PTC->PCOR |= 1<<7; /* Toggle output on port D16 (green LED) */
+			PTC->PCOR |= 1<<LedBar_1; /* Toggle output on port D16 (green LED) */
 			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			switch_flag=-1;
 			break;
@@ -265,19 +275,23 @@ void Manual_down() {
 }
 
 void clear_GPIO() {
-	PTD->PSOR |= 1<<0; /*  turning off BLUE LED */
-	PTD->PSOR |= 1<<15; /* turning off RED LED */
-	PTD->PSOR |= 1<<16; /* turning off GREEN LED */
-	PTC->PCOR |= 1<<7;/*Turning off the Port 7*/
-	PTC->PCOR |= 1<<14;
-	PTC->PCOR |= 1<<3;
-	PTB->PCOR |= 1<<17;
-	PTB->PCOR |= 1<<14;
-	PTB->PCOR |= 1<<15;
-	PTB->PCOR |= 1<<16;
-	PTE->PCOR |= 1<<15;
-	PTE->PCOR |= 1<<16;
-	PTE->PCOR |= 1<<14;
+	PTD->PSOR |= 1<<BlueLed; /*  turning off BLUE LED */
+	PTD->PSOR |= 1<<RedLed; /* turning off RED LED */
+	PTD->PSOR |= 1<<GreenLed; /* turning off GREEN LED */
+	PTC->PCOR |= 1<<LedBar_1;/*Turning off the Port 7*/
+	PTC->PCOR |= 1<<LedBar_2;
+	PTC->PCOR |= 1<<LedBar_3;
+	PTB->PCOR |= 1<<LedBar_4;
+	PTB->PCOR |= 1<<LedBar_5;
+	PTB->PCOR |= 1<<LedBar_6;
+	PTB->PCOR |= 1<<LedBar_7;
+	PTE->PCOR |= 1<<LedBar_8;
+	PTE->PCOR |= 1<<LedBar_9;
+	PTE->PCOR |= 1<<LedBar_10;
+}
+
+void init_primary_function(){
+	primary_function();
 }
 /*============================================================================*/
  /* Notice: the file ends with a blank new line to avoid compiler warnings */
