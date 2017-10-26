@@ -74,6 +74,7 @@ int main(void) {
   #endif
 	/*** End of Processor Expert internal initialization.                    ***/
 
+
 	//init_primary_function();
 	WDOG_disable();
 	PORT_init(); /* Configure ports */
