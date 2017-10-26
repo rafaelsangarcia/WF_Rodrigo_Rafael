@@ -99,6 +99,7 @@ void Toggle_LedBar_9(int);
 void Toggle_LedBar_10(int);
 int Validate_UpButton();
 int Validate_DownButton();
+
 /*============================================================================*/
 
 #endif  /* Notice: the file ends with a blank new line to avoid compiler warnings */

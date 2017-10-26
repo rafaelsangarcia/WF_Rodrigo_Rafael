@@ -43,7 +43,7 @@
 
   ============================================================================*/
 #include "APP/Up_Down.h"
-#include "HAL/Win_Mov.h"
+//#include "HAL/Win_Mov.h"
 
 /* Includes */
 /*============================================================================*/
@@ -95,7 +95,6 @@ int validation_10ms() {
 		return 0;
 	}
 }
-
 int validation_500ms() {
 	if (lpit0_ch1_flag_counter >= 500) {
 		return 1;
@@ -104,29 +103,26 @@ int validation_500ms() {
 		return 0;
 	}
 }
-
 void timer () {
 	while (0 == (LPIT0->MSR & LPIT_MSR_TIF1_MASK)) {}
 	(lpit0_ch1_flag_counter)++;
 	LPIT0->MSR |= LPIT_MSR_TIF1_MASK;
 }
-
 void clear_GPIO() {
-	PTD->PSOR |= 1<<BlueLed; /*  turning off BLUE LED */
-	PTD->PSOR |= 1<<RedLed; /* turning off RED LED */
-	PTD->PSOR |= 1<<GreenLed; /* turning off GREEN LED */
-	PTC->PCOR |= 1<<LedBar_1;/*Turning off the Port 7*/
-	PTC->PCOR |= 1<<LedBar_2;
-	PTC->PCOR |= 1<<LedBar_3;
-	PTB->PCOR |= 1<<LedBar_4;
-	PTB->PCOR |= 1<<LedBar_5;
-	PTB->PCOR |= 1<<LedBar_6;
-	PTB->PCOR |= 1<<LedBar_7;
-	PTE->PCOR |= 1<<LedBar_8;
-	PTE->PCOR |= 1<<LedBar_9;
-	PTE->PCOR |= 1<<LedBar_10;
+	Toggle_BlueLed(0); /*  turning off BLUE LED */
+	Toggle_RedLed(0);
+	Toggle_GreenLed(0);
+	Toggle_LedBar_1(0);
+	Toggle_LedBar_2(0);
+	Toggle_LedBar_3(0);
+	Toggle_LedBar_4(0);
+	Toggle_LedBar_5(0);
+	Toggle_LedBar_6(0);
+	Toggle_LedBar_7(0);
+	Toggle_LedBar_8(0);
+	Toggle_LedBar_9(0);
+	Toggle_LedBar_10(0);
 }
-
 void Manual_up() {
 	Toggle_BlueLed(1);
 	Toggle_GreenLed(0);
@@ -306,7 +302,35 @@ int Push_DownButton(){
 		return 0;
 	}
 }
+void clear_Leds(int led) {
+	switch(led){
+		case 0:
+			Toggle_BlueLed(0);
+			Toggle_GreenLed(0);
+			Toggle_RedLed(0);
+			break;
 
+		case 1:
+			Toggle_BlueLed(0);
+			break;
+
+		case 2:
+			Toggle_GreenLed(0);
+			break;
+
+		case 3:
+			Toggle_RedLed(1);
+			break;
+
+		default:
+			Toggle_BlueLed(0);
+			Toggle_GreenLed(0);
+			Toggle_RedLed(0);
+			break;
+
+	}
+
+}
 
 
  /* Notice: the file ends with a blank new line to avoid compiler warnings */

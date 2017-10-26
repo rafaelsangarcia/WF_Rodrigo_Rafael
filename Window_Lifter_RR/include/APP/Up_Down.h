@@ -48,7 +48,7 @@
 /* Includes */
 #include "HAL/Win_Mov.h"
 /*============================================================================*/
-
+/*
 #define BlueLed 0
 #define RedLed 15
 #define GreenLed 16
@@ -65,7 +65,7 @@
 #define LedBar_7 3
 #define LedBar_8 16
 #define LedBar_9 15
-#define LedBar_10 14
+#define LedBar_10 14*/
 
 /* Constants and types */
 /*============================================================================*/
@@ -86,6 +86,7 @@ int validation_10ms();
 int validation_500ms();
 void timer();
 void clear_GPIO();
+void clear_Leds(int led);
 
 /*============================================================================*/
 

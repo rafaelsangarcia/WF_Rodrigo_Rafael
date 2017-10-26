@@ -303,6 +303,8 @@ void Toggle_BlueLed(int status){
 		PTD->PSOR |= 1<< BlueLed;
 	}
 }
+
+//test
 void Toggle_GreenLed(int status){
 	if (status == 1) {
 		PTD->PCOR |= 1<< GreenLed;
@@ -415,6 +417,7 @@ int Validate_DownButton(){
 			return 0;
 		}
 }
+
 
 /*============================================================================*/
  /* Notice: the file ends with a blank new line to avoid compiler warnings */
