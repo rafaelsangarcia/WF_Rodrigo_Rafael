@@ -77,13 +77,28 @@ typedef int s32_t;//counter*/
 /*============================================================================*/
 /* Exported functions prototypes */
 /*============================================================================*/
-void Manual_up();
-void Manual_down();
-void timer();
-void clear_GPIO();
-int validation_10ms();
-int validation_500ms();
+//void Manual_up();
+//void Manual_down();
+
+//void timer();
+//void clear_GPIO();
+//int validation_10ms();
+//int validation_500ms();
 void init_primary_function();
+void Toggle_BlueLed(int);
+void Toggle_GreenLed(int);
+void Toggle_LedBar_1(int);
+void Toggle_LedBar_2(int);
+void Toggle_LedBar_3(int);
+void Toggle_LedBar_4(int);
+void Toggle_LedBar_5(int);
+void Toggle_LedBar_6(int);
+void Toggle_LedBar_7(int);
+void Toggle_LedBar_8(int);
+void Toggle_LedBar_9(int);
+void Toggle_LedBar_10(int);
+int Validate_UpButton();
+int Validate_DownButton();
 
 /*============================================================================*/
 

@@ -40,14 +40,41 @@
 /*============================================================================*/
 /*
  * $Log: filename.h  $
+<<<<<<< HEAD
 #include "HAL/Win_Mov.h"
+=======
+
+>>>>>>> Rafael
   ============================================================================*/
 #ifndef FILENAME_H
 #define FILENAME_H
 
 /* Includes */
+<<<<<<< HEAD
 /*============================================================================*/
 
+=======
+#include "HAL/Win_Mov.h"
+/*============================================================================*/
+/*
+#define BlueLed 0
+#define RedLed 15
+#define GreenLed 16
+//Push Button Define
+#define UpButton 12
+#define DownButton 13
+//Led Bar Define
+#define LedBar_1 7
+#define LedBar_2 17
+#define LedBar_3 14
+#define LedBar_4 15
+#define LedBar_5 16
+#define LedBar_6 14
+#define LedBar_7 3
+#define LedBar_8 16
+#define LedBar_9 15
+#define LedBar_10 14*/
+>>>>>>> Rafael
 
 /* Constants and types */
 /*============================================================================*/
@@ -55,11 +82,28 @@
 
 /* Exported Variables */
 /*============================================================================*/
+<<<<<<< HEAD
 
 
 /* Exported functions prototypes */
 void Manual_up(void);
 void Manual_Down(void);
+=======
+  //int switch_flag;
+  //int lpit0_ch0_flag_counter;
+
+
+/* Exported functions prototypes */
+void Manual_up();
+void Manual_Down();
+int Push_UpButton();
+int Push_DownButton();
+int validation_10ms();
+int validation_500ms();
+void timer();
+void clear_GPIO();
+void clear_Leds(int led);
+>>>>>>> Rafael
 
 /*============================================================================*/
 
