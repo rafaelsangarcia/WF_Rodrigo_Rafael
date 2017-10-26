@@ -55,6 +55,7 @@ typedef int s32_t;//counter*/
 //Push Button Define
 #define UpButton 12
 #define DownButton 13
+#define Antipinch 13
 //Led Bar Define
 #define LedBar_1 7
 #define LedBar_2 17
@@ -99,6 +100,7 @@ void Toggle_LedBar_9(int);
 void Toggle_LedBar_10(int);
 int Validate_UpButton();
 int Validate_DownButton();
+int Validate_Antipinch();
 
 /*============================================================================*/
 

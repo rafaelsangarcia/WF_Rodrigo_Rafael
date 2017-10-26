@@ -302,6 +302,15 @@ int Push_DownButton(){
 		return 0;
 	}
 }
+
+int Push_Antipinch(){
+	if(Validate_Antipinch()){
+			return 1;
+		}
+		else{
+			return 0;
+		}
+}
 void clear_Leds(int led) {
 	switch(led){
 		case 0:

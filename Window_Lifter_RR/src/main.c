@@ -85,6 +85,7 @@ int main(void) {
 	lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 	clear_GPIO(); //clear PORTS
 
+
 	for (;;) {
 		if(Push_UpButton() == 1){
 			timer();
@@ -114,7 +115,7 @@ void OneTouch_UP(){
   temp = switch_flag;
   while(temp < 9){
     Manual_up();
-    if(Push_DownButton() == 1){
+    if(Push_Antipinch() == 1){
       clear_Leds(3);
       temp = 9;
       flag = 1;
@@ -156,7 +157,7 @@ void behavior_Down(){
 }
 void antiPinch(){
   OneTouch_Down();
-  Toggle_RedLed(0);
+  clear_Leds(0);
   flag = 0;
   lpit0_ch1_flag_counter = 0;
   while (lpit0_ch1_flag_counter <= 5000){
