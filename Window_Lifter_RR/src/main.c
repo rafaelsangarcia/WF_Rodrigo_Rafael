@@ -65,14 +65,9 @@ void behavior_Down();
 void antiPinch();
 void idleState();
 
-<<<<<<< HEAD
-int main(void)
-{
-=======
 /*============================================================================*/
 /* Inline functions */
 int main(void) {
->>>>>>> 636b81c7b62a3133f9cad4520922ec62265c1431
 	/*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
   #ifdef PEX_RTOS_INIT
   	PEX_RTOS_INIT();                   /* Initialization of the selected RTOS. Macro is defined by the RTOS component. */
