@@ -418,6 +418,13 @@ int Validate_DownButton(){
 		}
 }
 
-
+int Validate_Antipinch(){
+	if(PTE->PDIR & (1<<Antipinch)){
+				return 1;
+			}
+			else{
+				return 0;
+			}
+}
 /*============================================================================*/
  /* Notice: the file ends with a blank new line to avoid compiler warnings */

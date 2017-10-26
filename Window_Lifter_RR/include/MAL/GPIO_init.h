@@ -57,6 +57,7 @@
 //Push Button Define
 #define UpButton 12
 #define DownButton 13
+#define Antipinch 13
 //Led Bar Define
 #define LedBar_1 7
 #define LedBar_2 17

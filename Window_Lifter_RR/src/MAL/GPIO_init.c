@@ -112,6 +112,7 @@ void PORT_init (void) {/*Initializing the PORTS*/
 	PTE->PDDR |= 1<<LedBar_10;
 	PTC->PDDR &= ~(1<<UpButton);/*PORT C12: Data Direction= input*/
 	PTC->PDDR &= ~(1<<DownButton);/*PORT C13: Data Direction= input*/
+	PTE->PDDR &= ~(1<<Antipinch);
 
 	PORTD->PCR[BlueLed]  = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
 	PORTD->PCR[RedLed] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to red LED on EVB) */
@@ -128,6 +129,7 @@ void PORT_init (void) {/*Initializing the PORTS*/
 	PORTE->PCR[LedBar_10] = 0x00000100;
 	PORTC->PCR[UpButton] = 0x00000110;
 	PORTC->PCR[DownButton] = 0x00000110;
+	PORTE->PCR[Antipinch] = 0x00000110;
 }
 
 void LPIT0_init (void) {

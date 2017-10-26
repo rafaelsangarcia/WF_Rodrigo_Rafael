@@ -82,6 +82,7 @@ void Manual_up();
 void Manual_Down();
 int Push_UpButton();
 int Push_DownButton();
+int Push_Antipinch();
 int validation_10ms();
 int validation_500ms();
 void timer();
