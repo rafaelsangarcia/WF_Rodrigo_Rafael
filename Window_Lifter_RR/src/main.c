@@ -116,7 +116,7 @@ void OneTouch_UP(){
   while(temp < 9){
     Manual_up();
     if(Push_Antipinch() == 1){
-      clear_Leds(3);
+      default_Leds(3);
       temp = 9;
       flag = 1;
     }
@@ -157,7 +157,7 @@ void behavior_Down(){
 }
 void antiPinch(){
   OneTouch_Down();
-  clear_Leds(0);
+  default_Leds(0);
   flag = 0;
   lpit0_ch1_flag_counter = 0;
   while (lpit0_ch1_flag_counter <= 5000){
@@ -166,7 +166,7 @@ void antiPinch(){
   lpit0_ch1_flag_counter = 0;
 }
 void idleState(){
-  clear_Leds(0);
+  default_Leds(0);
   lpit0_ch1_flag_counter = 0;
 }
 /*============================================================================*/

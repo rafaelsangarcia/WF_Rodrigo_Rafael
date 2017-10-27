@@ -87,7 +87,7 @@ int validation_10ms();
 int validation_500ms();
 void timer();
 void clear_GPIO();
-void clear_Leds(int led);
+void default_Leds(int led);
 
 /*============================================================================*/
 

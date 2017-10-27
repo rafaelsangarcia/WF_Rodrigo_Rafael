@@ -302,7 +302,6 @@ int Push_DownButton(){
 		return 0;
 	}
 }
-
 int Push_Antipinch(){
 	if(Validate_Antipinch()){
 			return 1;
@@ -311,7 +310,7 @@ int Push_Antipinch(){
 			return 0;
 		}
 }
-void clear_Leds(int led) {
+void default_Leds(int led) {
 	switch(led){
 		case 0:
 			Toggle_BlueLed(0);
@@ -332,9 +331,9 @@ void clear_Leds(int led) {
 			break;
 
 		default:
-			Toggle_BlueLed(0);
-			Toggle_GreenLed(0);
-			Toggle_RedLed(0);
+			Toggle_BlueLed(1);
+			Toggle_GreenLed(1);
+			Toggle_RedLed(1	);
 			break;
 
 	}
