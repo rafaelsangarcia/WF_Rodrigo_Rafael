@@ -32,11 +32,13 @@
 /*============================================================================*/
 /*                    REUSE HISTORY - taken over from                         */
 /*============================================================================*/
-/*  Author                          |       Version     | Description         */
+/*  Author              |    Version     | Description                        */
 /*----------------------------------------------------------------------------*/
-/* Rodrigo		                    | 61f508b        |   1.-Added GPIO_init library */
-/*									|				 |   2.-Added  for ports, disable */
-/*									|			   	 |   and for enabling the timer functions   */
+/* Rodrigo Mortera	    |        1       |   1.-Added GPIO_init library       */
+/*						|				 |   2.-Added  for ports, disable     */
+/*					    |			   	 |   and for enabling the timer functions*/
+/*----------------------------------------------------------------------------*/
+/* Rodrigo Mortera      |         2      | Update Naming Conventions          */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -81,17 +83,9 @@
  a certain activation of the motors.
  \returns TRUE if the activation is allowed, FALSE if not
 */
-//uint8 algreqg_olp_CheckOLPAllow(uint8 ReqestedAction_u8,       /**< the requested action to be performed (e.g. unlock) */
-//                                uint16 RequestedComponent_u16  /**< the mask of the doors which motors to be activated (e.g. front doors) */
-//                                )
-//{
-//	return 0;
-//}
-
-
 /* Exported functions */
 /*============================================================================*/
-void PORT_init (void) {/*Initializing the PORTS*/
+void malGPIO_init_void_PORT_init (void) {/*Initializing the PORTS*/
 	PCC-> PCCn[PCC_PORTD_INDEX] = PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */
 	PCC-> PCCn[PCC_PORTC_INDEX] = PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */
 	PCC-> PCCn[PCC_PORTB_INDEX] = PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */
@@ -132,7 +126,7 @@ void PORT_init (void) {/*Initializing the PORTS*/
 	PORTE->PCR[Antipinch] = 0x00000110;
 }
 
-void LPIT0_init (void) {
+void malGPIO_init_void_LPIT0_init (void) {
 	PCC->PCCn[PCC_LPIT_INDEX] = PCC_PCCn_PCS(6); /* Clock Src = 6 (SPLL2_DIV2_CLK)*/
 	PCC->PCCn[PCC_LPIT_INDEX] |= PCC_PCCn_CGC_MASK; /* Enable clk to LPIT0 regs */
 	LPIT0->MCR = 0x00000001; /* M_CEN=1: enable module clk (allows writing other LPIT0 regs)*/
@@ -143,7 +137,7 @@ void LPIT0_init (void) {
 
 }
 
-void WDOG_disable (void) {
+void malGPIO_init_void_WDOG_disable (void) {
 	WDOG->CNT=0xD928C520; /*Unlock watchdog*/
 	WDOG->TOVAL=0x0000FFFF; /*Maximum timeout value*/
 	WDOG->CS = 0x00002100; /*Disable watchdog*/

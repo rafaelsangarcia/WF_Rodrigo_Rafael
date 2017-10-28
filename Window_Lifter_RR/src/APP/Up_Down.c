@@ -4,7 +4,7 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: filename.c $
+ * $Source: Up_Down.c $
  * $Revision: version $
  * $Author: author $
  * $Date: date $
@@ -32,9 +32,13 @@
 /*============================================================================*/
 /*                    REUSE HISTORY - taken over from                         */
 /*============================================================================*/
-/*  DATABASE           |        PROJECT     | FILE VERSION (AND INSTANCE)     */
+/*  DATABASE           |        VERSION      | DESCRIPTION                    */
 /*----------------------------------------------------------------------------*/
-/*                     |                    |                                 */
+/*   Rodrigo Mortera   |         1             |    Creation of led sequence to up & down the window*/
+/*----------------------------------------------------------------------------*/
+/*   Rafael Sanchez    |         2            |   Modification to manual up & down function and added of validation functions*/
+/*----------------------------------------------------------------------------*/
+/* Rodrigo Mortera      |         3         | Update Naming Conventions       */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -42,30 +46,27 @@
  * $Log: filename.c  $
 
   ============================================================================*/
-#include "APP/Up_Down.h"
-//#include "HAL/Win_Mov.h"
-
 /* Includes */
+#include "APP/Up_Down.h"
 /*============================================================================*/
-
-
-
 /* Constants and types  */
 /*============================================================================*/
-
-
-
 /* Variables */
-
-int switch_flag = -1;
-int lpit0_ch0_flag_counter = 0;
-int lpit0_ch1_flag_counter = 0;
+T_S32 s32_switch_flag = -1;
+T_U32 u32_lpit0_ch0_flag_counter = 0;
+T_U32 u32_lpit0_ch1_flag_counter = 0;
 /*============================================================================*/
 /* Private functions prototypes */
+void appUpDown_void_timer0();
 /*============================================================================*/
 /* Inline functions */
 /*============================================================================*/
 /* Private functions */
+void appUpDown_void_timer0(){
+	while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {}
+	(u32_lpit0_ch0_flag_counter)++;
+	LPIT0->MSR |= LPIT_MSR_TIF0_MASK;
+}
 /*============================================================================*/
 /** Check if action is allowed by overload protection.
  To avoid overheating of the door locking motors and hardware failure
@@ -74,271 +75,207 @@ int lpit0_ch1_flag_counter = 0;
  a certain activation of the motors.
  \returns TRUE if the activation is allowed, FALSE if not
 */
-// uint8 algreqg_olp_CheckOLPAllow(uint8 ReqestedAction_u8,       /**< the requested action to be performed (e.g. unlock) */
-//                                 uint16 RequestedComponent_u16  /**< the mask of the doors which motors to be activated (e.g. front doors) */
-//                                 )
-// {
-// 	return 0;
-// }
 /* Exported functions */
 /*============================================================================*/
-// void timer () {
-// 	while (0 == (LPIT0->MSR & LPIT_MSR_TIF1_MASK)) {}
-// 	(lpit0_ch1_flag_counter)++;
-// 	LPIT0->MSR |= LPIT_MSR_TIF1_MASK;
-// }
-int validation_10ms() {
-	if (lpit0_ch1_flag_counter >= 10) {
+T_U32 appUpDown_u32_validation10ms() {
+	if (u32_lpit0_ch1_flag_counter >= 10) {
 		return 1;
 	}
 	else {
 		return 0;
 	}
 }
-int validation_500ms() {
-	if (lpit0_ch1_flag_counter >= 500) {
+T_U32 appUpDown_u32_validation500ms() {
+	if (u32_lpit0_ch1_flag_counter >= 500) {
 		return 1;
 	}
 	else {
 		return 0;
 	}
 }
-void timer () {
+void appUpDown_void_timer1() {
 	while (0 == (LPIT0->MSR & LPIT_MSR_TIF1_MASK)) {}
-	(lpit0_ch1_flag_counter)++;
+	(u32_lpit0_ch1_flag_counter)++;
 	LPIT0->MSR |= LPIT_MSR_TIF1_MASK;
 }
-void clear_GPIO() {
-	Toggle_BlueLed(0); /*  turning off BLUE LED */
-	Toggle_RedLed(0);
-	Toggle_GreenLed(0);
-	Toggle_LedBar_1(0);
-	Toggle_LedBar_2(0);
-	Toggle_LedBar_3(0);
-	Toggle_LedBar_4(0);
-	Toggle_LedBar_5(0);
-	Toggle_LedBar_6(0);
-	Toggle_LedBar_7(0);
-	Toggle_LedBar_8(0);
-	Toggle_LedBar_9(0);
-	Toggle_LedBar_10(0);
+
+
+
+void appUpDown_void_clearGPIO() {
+	halWinMov_void_ToggleBlueLed(0); /*  turning off BLUE LED */
+	halWinMov_void_ToggleRedLed(0);
+	halWinMov_void_ToggleGreenLed(0);
+	halWinMov_void_ToggleLedBar1(0);
+	halWinMov_void_ToggleLedBar2(0);
+	halWinMov_void_ToggleLedBar3(0);
+	halWinMov_void_ToggleLedBar4(0);
+	halWinMov_void_ToggleLedBar5(0);
+	halWinMov_void_ToggleLedBar6(0);
+	halWinMov_void_ToggleLedBar7(0);
+	halWinMov_void_ToggleLedBar8(0);
+	halWinMov_void_ToggleLedBar9(0);
+	halWinMov_void_ToggleLedBar10(0);
 }
-void Manual_up() {
-	Toggle_BlueLed(1);
-	Toggle_GreenLed(0);
-	if (switch_flag<9) {
-		switch_flag++;
+
+void appUpDown_void_ManualUp() {
+	halWinMov_void_ToggleBlueLed(1);
+	halWinMov_void_ToggleGreenLed(0);
+	if (s32_switch_flag<9) {
+		s32_switch_flag++;
 		}
-	switch (switch_flag) {
+	else{
+
+	}
+	appUpDown_void_timer0();
+	switch (s32_switch_flag) {
 				case 0:
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-					Toggle_LedBar_1(1);
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+					halWinMov_void_ToggleLedBar1(1);
 					break;
 
 				case 1:
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-					Toggle_LedBar_2(1); /* Toggle output on port D0 (blue LED) */
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+					halWinMov_void_ToggleLedBar2(1); /* Toggle output on port D0 (blue LED) */
 					break;
 
 				case 2:
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-					Toggle_LedBar_3(1); /* Toggle output on port D0 (blue LED) */
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+					halWinMov_void_ToggleLedBar3(1); /* Toggle output on port D0 (blue LED) */
 					break;
 
 				case 3:
-
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-					Toggle_LedBar_4(1); /* Toggle output on port D0 (blue LED) */
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+					halWinMov_void_ToggleLedBar4(1); /* Toggle output on port D0 (blue LED) */
 					break;
 
 				case 4:
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-					Toggle_LedBar_5(1); /* Toggle output on port D0 (blue LED) */
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+					halWinMov_void_ToggleLedBar5(1); /* Toggle output on port D0 (blue LED) */
 					break;
 
 				case 5:
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-					Toggle_LedBar_6(1); /* Toggle output on port D0 (blue LED) */
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+					halWinMov_void_ToggleLedBar6(1); /* Toggle output on port D0 (blue LED) */
 					break;
 
 				case 6:
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-					Toggle_LedBar_7(1); /* Toggle output on port D0 (blue LED) */
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+					halWinMov_void_ToggleLedBar7(1); /* Toggle output on port D0 (blue LED) */
 					break;
 
 				case 7:
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-					Toggle_LedBar_8(1); /* Toggle output on port D0 (blue LED) */
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+					halWinMov_void_ToggleLedBar8(1); /* Toggle output on port D0 (blue LED) */
 					break;
 
 				case 8:
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-					Toggle_LedBar_9(1); /* Toggle output on port D0 (blue LED) */
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+					halWinMov_void_ToggleLedBar9(1); /* Toggle output on port D0 (blue LED) */
 					break;
 
 				case 9:
-				while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-				lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-				Toggle_BlueLed(0); /* Toggle output on port D0 (blue LED) */
-				Toggle_LedBar_10(1); /* Toggle output on port D0 (blue LED) */
-				LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+					halWinMov_void_ToggleBlueLed(0); /* Toggle output on port D0 (blue LED) */
+					halWinMov_void_ToggleLedBar10(1); /* Toggle output on port D0 (blue LED) */
 				break;
 			}
 }
-void Manual_down() {
-	Toggle_BlueLed(0);//Blue led off
-	Toggle_GreenLed(1); /*Green Led On*/
-	switch (switch_flag) {
+void appUpDown_void_ManualDown() {
+	halWinMov_void_ToggleBlueLed(0);//Blue led off
+	halWinMov_void_ToggleGreenLed(1); /*Green Led On*/
+	appUpDown_void_timer0();
+	switch (s32_switch_flag) {
 		case 9:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			Toggle_LedBar_10(0); /* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+			halWinMov_void_ToggleLedBar10(0); /* Toggle output on port D0 (blue LED) */
 			break;
 
 		case 8:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			Toggle_LedBar_9(0);/* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+			halWinMov_void_ToggleLedBar9(0);/* Toggle output on port D0 (blue LED) */
 			break;
 
 		case 7:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			Toggle_LedBar_8(0); /* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+			halWinMov_void_ToggleLedBar8(0); /* Toggle output on port D0 (blue LED) */
 			break;
 
 		case 6:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			Toggle_LedBar_7(0); /* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+			halWinMov_void_ToggleLedBar7(0); /* Toggle output on port D0 (blue LED) */
 			break;
 
 		case 5:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			Toggle_LedBar_6(0); /* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+			halWinMov_void_ToggleLedBar6(0); /* Toggle output on port D0 (blue LED) */
 			break;
 
 		case 4:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			Toggle_LedBar_5(0); /* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+			halWinMov_void_ToggleLedBar5(0); /* Toggle output on port D0 (blue LED) */
 			break;
 
 		case 3:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			Toggle_LedBar_4(0); /* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+			halWinMov_void_ToggleLedBar4(0); /* Toggle output on port D0 (blue LED) */
 			break;
 
 		case 2:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			Toggle_LedBar_3(0); /* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+			halWinMov_void_ToggleLedBar3(0); /* Toggle output on port D0 (blue LED) */
 			break;
 
 		case 1:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			Toggle_LedBar_2(0); /* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
+			halWinMov_void_ToggleLedBar2(0); /* Toggle output on port D0 (blue LED) */
 			break;
 
 		case 0:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			//PTD->PSOR |= 1<<16; /* Toggle output on port D16 (green LED) */
-			Toggle_LedBar_1(0); /* Toggle output on port D16 (green LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
-			switch_flag=-1;
+			halWinMov_void_ToggleLedBar1(0); /* Toggle output on port D16 (green LED) */
+			s32_switch_flag=-1;
 			break;
 
 		default:
 			break;
 	}
-	if (switch_flag>0){
-		switch_flag--;
+	if (s32_switch_flag>0){
+		s32_switch_flag--;
 	}
 }
-int Push_UpButton(){
-	if(Validate_UpButton()){
+T_U32 appUpDown_u32_PushUpButton(){
+	if(halWinMov_u32_ValidateUpButton()){
 		return 1;
 	}
 	else{
 		return 0;
 	}
 }
-int Push_DownButton(){
-	if(Validate_DownButton()){
+T_U32 appUpDown_u32_PushDownButton(){
+	if(halWinMov_u32_ValidateDownButton()){
 		return 1;
 	}
 	else{
 		return 0;
 	}
 }
-int Push_Antipinch(){
-	if(Validate_Antipinch()){
+T_U32 appUpDown_u32_PushAntipinch(){
+	if(halWinMov_u32_ValidateAntipinch()){
 			return 1;
 		}
 		else{
 			return 0;
 		}
 }
-void default_Leds(int led) {
-	switch(led){
+
+
+void appUpDown_void_default_Leds(T_U32 u32_led) {
+	switch(u32_led){
 		case 0:
-			Toggle_BlueLed(0);
-			Toggle_GreenLed(0);
-			Toggle_RedLed(0);
+			halWinMov_void_ToggleBlueLed(0);
+			halWinMov_void_ToggleGreenLed(0);
+			halWinMov_void_ToggleRedLed(0);
 			break;
 
 		case 1:
-			Toggle_BlueLed(0);
+			halWinMov_void_ToggleBlueLed(0);
 			break;
 
 		case 2:
-			Toggle_GreenLed(0);
+			halWinMov_void_ToggleGreenLed(0);
 			break;
 
 		case 3:
-			Toggle_RedLed(1);
+			halWinMov_void_ToggleRedLed(1);
 			break;
 
 		default:
-			Toggle_BlueLed(1);
-			Toggle_GreenLed(1);
-			Toggle_RedLed(1	);
+			halWinMov_void_ToggleBlueLed(1);
+			halWinMov_void_ToggleGreenLed(1);
+			halWinMov_void_ToggleRedLed(1);
 			break;
 
 	}
 
 }
-
-
  /* Notice: the file ends with a blank new line to avoid compiler warnings */
