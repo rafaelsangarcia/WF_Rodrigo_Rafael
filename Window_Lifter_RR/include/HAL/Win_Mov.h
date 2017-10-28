@@ -49,7 +49,7 @@ typedef int s32_t;//counter*/
 
 #ifndef FILENAME_H
 #define FILENAME_H
-#define BlueLed 0
+/*#define BlueLed 0
 #define RedLed 15
 #define GreenLed 16
 //Push Button Define
@@ -66,7 +66,7 @@ typedef int s32_t;//counter*/
 #define LedBar_7 3
 #define LedBar_8 16
 #define LedBar_9 15
-#define LedBar_10 14
+#define LedBar_10 14*/
 /*============================================================================*/
 /* Constants and types */
 /*============================================================================*/

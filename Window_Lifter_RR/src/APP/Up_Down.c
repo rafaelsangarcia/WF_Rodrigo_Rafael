@@ -57,6 +57,7 @@
 
 /* Variables */
 
+
 int switch_flag = -1;
 int lpit0_ch0_flag_counter = 0;
 int lpit0_ch1_flag_counter = 0;
@@ -108,6 +109,7 @@ void timer () {
 	(lpit0_ch1_flag_counter)++;
 	LPIT0->MSR |= LPIT_MSR_TIF1_MASK;
 }
+
 void clear_GPIO() {
 	Toggle_BlueLed(0); /*  turning off BLUE LED */
 	Toggle_RedLed(0);
@@ -203,6 +205,8 @@ void Manual_up() {
 				break;
 			}
 }
+
+
 void Manual_down() {
 	Toggle_BlueLed(0);//Blue led off
 	Toggle_GreenLed(1); /*Green Led On*/

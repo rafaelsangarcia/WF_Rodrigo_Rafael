@@ -82,7 +82,6 @@ int main(void) {
 	lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 	clear_GPIO(); //clear PORTS
 
-
 	for (;;) {
 		if(Push_UpButton() == 1){
 			timer();
