@@ -85,6 +85,7 @@ T_U32 appUpDown_u32_validation10ms() {
 		return 0;
 	}
 }
+
 T_U32 appUpDown_u32_validation500ms() {
 	if (u32_lpit0_ch1_flag_counter >= 500) {
 		return 1;
@@ -93,13 +94,12 @@ T_U32 appUpDown_u32_validation500ms() {
 		return 0;
 	}
 }
+
 void appUpDown_void_timer1() {
 	while (0 == (LPIT0->MSR & LPIT_MSR_TIF1_MASK)) {}
 	(u32_lpit0_ch1_flag_counter)++;
 	LPIT0->MSR |= LPIT_MSR_TIF1_MASK;
 }
-
-
 
 void appUpDown_void_clearGPIO() {
 	halWinMov_void_ToggleBlueLed(0); /*  turning off BLUE LED */
@@ -170,6 +170,7 @@ void appUpDown_void_ManualUp() {
 				break;
 			}
 }
+
 void appUpDown_void_ManualDown() {
 	halWinMov_void_ToggleBlueLed(0);//Blue led off
 	halWinMov_void_ToggleGreenLed(1); /*Green Led On*/
@@ -223,6 +224,7 @@ void appUpDown_void_ManualDown() {
 		s32_switch_flag--;
 	}
 }
+
 T_U32 appUpDown_u32_PushUpButton(){
 	if(halWinMov_u32_ValidateUpButton()){
 		return 1;
@@ -231,6 +233,7 @@ T_U32 appUpDown_u32_PushUpButton(){
 		return 0;
 	}
 }
+
 T_U32 appUpDown_u32_PushDownButton(){
 	if(halWinMov_u32_ValidateDownButton()){
 		return 1;
@@ -239,6 +242,7 @@ T_U32 appUpDown_u32_PushDownButton(){
 		return 0;
 	}
 }
+
 T_U32 appUpDown_u32_PushAntipinch(){
 	if(halWinMov_u32_ValidateAntipinch()){
 			return 1;
@@ -247,7 +251,6 @@ T_U32 appUpDown_u32_PushAntipinch(){
 			return 0;
 		}
 }
-
 
 void appUpDown_void_default_Leds(T_U32 u32_led) {
 	switch(u32_led){
@@ -274,8 +277,6 @@ void appUpDown_void_default_Leds(T_U32 u32_led) {
 			halWinMov_void_ToggleGreenLed(1);
 			halWinMov_void_ToggleRedLed(1);
 			break;
-
 	}
-
 }
  /* Notice: the file ends with a blank new line to avoid compiler warnings */
