@@ -81,14 +81,6 @@
  a certain activation of the motors.
  \returns TRUE if the activation is allowed, FALSE if not
 */
-//uint8 algreqg_olp_CheckOLPAllow(uint8 ReqestedAction_u8,       /**< the requested action to be performed (e.g. unlock) */
-//                                uint16 RequestedComponent_u16  /**< the mask of the doors which motors to be activated (e.g. front doors) */
-//                                )
-//{
-//	return 0;
-//}
-
-
 /* Exported functions */
 /*============================================================================*/
 void PORT_init (void) {/*Initializing the PORTS*/
