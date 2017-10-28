@@ -303,8 +303,6 @@ void Toggle_BlueLed(int status){
 		PTD->PSOR |= 1<< BlueLed;
 	}
 }
-
-//test
 void Toggle_GreenLed(int status){
 	if (status == 1) {
 		PTD->PCOR |= 1<< GreenLed;
@@ -417,7 +415,6 @@ int Validate_DownButton(){
 			return 0;
 		}
 }
-
 int Validate_Antipinch(){
 	if(PTE->PDIR & (1<<Antipinch)){
 				return 1;

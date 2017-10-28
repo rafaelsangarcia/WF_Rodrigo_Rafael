@@ -85,7 +85,7 @@ int Push_DownButton();
 int Push_Antipinch();
 int validation_10ms();
 int validation_500ms();
-void timer();
+void timer_1();
 void clear_GPIO();
 void default_Leds(int led);
 

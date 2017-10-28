@@ -12,10 +12,7 @@
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
 /** \file
-    short description in one sentence end with dot.
-    detailed
-    multiline
-    description of the file
+    This is the main.c file
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -53,7 +50,6 @@
 extern int switch_flag;
 extern int lpit0_ch0_flag_counter;
 extern int lpit0_ch1_flag_counter;
-
 int flag = 0;
 int temp = 0;
 /*============================================================================*/
@@ -64,7 +60,6 @@ void behavior_UP();
 void behavior_Down();
 void antiPinch();
 void idleState();
-
 /*============================================================================*/
 /* Inline functions */
 int main(void) {
@@ -73,9 +68,6 @@ int main(void) {
   	PEX_RTOS_INIT();                   /* Initialization of the selected RTOS. Macro is defined by the RTOS component. */
   #endif
 	/*** End of Processor Expert internal initialization.                    ***/
-
-
-	//init_primary_function();
 	WDOG_disable();
 	PORT_init(); /* Configure ports */
 	SOSC_init_8MHz(); /* Initialize system oscillator for 8 MHz xtal */
@@ -85,10 +77,9 @@ int main(void) {
 	lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 	clear_GPIO(); //clear PORTS
 
-
 	for (;;) {
 		if(Push_UpButton() == 1){
-			timer();
+			timer_1();
 			if(validation_10ms() == 1){
         behavior_UP();
 			}
@@ -97,7 +88,7 @@ int main(void) {
       antiPinch();
 		}
 		if(Push_DownButton() == 1){
-		  timer();
+		  timer_1();
 			if(validation_10ms() == 1){
         behavior_Down();
 			}
@@ -107,8 +98,6 @@ int main(void) {
 		}
   }
 }
-
-
 /*============================================================================*/
 /* Private functions */
 void OneTouch_UP(){
@@ -161,7 +150,7 @@ void antiPinch(){
   flag = 0;
   lpit0_ch1_flag_counter = 0;
   while (lpit0_ch1_flag_counter <= 5000){
-    timer();
+    timer_1();
   }
   lpit0_ch1_flag_counter = 0;
 }
@@ -170,7 +159,6 @@ void idleState(){
   lpit0_ch1_flag_counter = 0;
 }
 /*============================================================================*/
-
 /** Check if action is allowed by overload protection.
  To avoid overheating of the door locking motors and hardware failure
  the software shall limit the number of activations in a short period.
@@ -180,5 +168,4 @@ void idleState(){
 */
 /* Exported functions */
 /*============================================================================*/
-
  /* Notice: the file ends with a blank new line to avoid compiler warnings */

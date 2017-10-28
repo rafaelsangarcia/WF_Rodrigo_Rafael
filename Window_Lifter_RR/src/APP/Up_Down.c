@@ -4,7 +4,7 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: filename.c $
+ * $Source: Up_Down.c $
  * $Revision: version $
  * $Author: author $
  * $Date: date $
@@ -42,30 +42,27 @@
  * $Log: filename.c  $
 
   ============================================================================*/
-#include "APP/Up_Down.h"
-//#include "HAL/Win_Mov.h"
-
 /* Includes */
+#include "APP/Up_Down.h"
 /*============================================================================*/
-
-
-
 /* Constants and types  */
 /*============================================================================*/
-
-
-
 /* Variables */
-
 int switch_flag = -1;
 int lpit0_ch0_flag_counter = 0;
 int lpit0_ch1_flag_counter = 0;
 /*============================================================================*/
 /* Private functions prototypes */
+void timer_0();
 /*============================================================================*/
 /* Inline functions */
 /*============================================================================*/
 /* Private functions */
+void timer_0(){
+	while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {}
+	(lpit0_ch0_flag_counter)++;
+	LPIT0->MSR |= LPIT_MSR_TIF0_MASK;
+}
 /*============================================================================*/
 /** Check if action is allowed by overload protection.
  To avoid overheating of the door locking motors and hardware failure
@@ -74,19 +71,8 @@ int lpit0_ch1_flag_counter = 0;
  a certain activation of the motors.
  \returns TRUE if the activation is allowed, FALSE if not
 */
-// uint8 algreqg_olp_CheckOLPAllow(uint8 ReqestedAction_u8,       /**< the requested action to be performed (e.g. unlock) */
-//                                 uint16 RequestedComponent_u16  /**< the mask of the doors which motors to be activated (e.g. front doors) */
-//                                 )
-// {
-// 	return 0;
-// }
 /* Exported functions */
 /*============================================================================*/
-// void timer () {
-// 	while (0 == (LPIT0->MSR & LPIT_MSR_TIF1_MASK)) {}
-// 	(lpit0_ch1_flag_counter)++;
-// 	LPIT0->MSR |= LPIT_MSR_TIF1_MASK;
-// }
 int validation_10ms() {
 	if (lpit0_ch1_flag_counter >= 10) {
 		return 1;
@@ -103,7 +89,7 @@ int validation_500ms() {
 		return 0;
 	}
 }
-void timer () {
+void timer_1() {
 	while (0 == (LPIT0->MSR & LPIT_MSR_TIF1_MASK)) {}
 	(lpit0_ch1_flag_counter)++;
 	LPIT0->MSR |= LPIT_MSR_TIF1_MASK;
@@ -129,153 +115,93 @@ void Manual_up() {
 	if (switch_flag<9) {
 		switch_flag++;
 		}
+	timer_0();
 	switch (switch_flag) {
 				case 0:
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 					Toggle_LedBar_1(1);
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 					break;
 
 				case 1:
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 					Toggle_LedBar_2(1); /* Toggle output on port D0 (blue LED) */
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 					break;
 
 				case 2:
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 					Toggle_LedBar_3(1); /* Toggle output on port D0 (blue LED) */
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 					break;
 
 				case 3:
-
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 					Toggle_LedBar_4(1); /* Toggle output on port D0 (blue LED) */
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 					break;
 
 				case 4:
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 					Toggle_LedBar_5(1); /* Toggle output on port D0 (blue LED) */
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 					break;
 
 				case 5:
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 					Toggle_LedBar_6(1); /* Toggle output on port D0 (blue LED) */
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 					break;
 
 				case 6:
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 					Toggle_LedBar_7(1); /* Toggle output on port D0 (blue LED) */
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 					break;
 
 				case 7:
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 					Toggle_LedBar_8(1); /* Toggle output on port D0 (blue LED) */
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 					break;
 
 				case 8:
-					while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-					lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 					Toggle_LedBar_9(1); /* Toggle output on port D0 (blue LED) */
-					LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 					break;
 
 				case 9:
-				while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-				lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 				Toggle_BlueLed(0); /* Toggle output on port D0 (blue LED) */
 				Toggle_LedBar_10(1); /* Toggle output on port D0 (blue LED) */
-				LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 				break;
 			}
 }
 void Manual_down() {
 	Toggle_BlueLed(0);//Blue led off
 	Toggle_GreenLed(1); /*Green Led On*/
+	timer_0();
 	switch (switch_flag) {
 		case 9:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 			Toggle_LedBar_10(0); /* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 8:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 			Toggle_LedBar_9(0);/* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 7:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 			Toggle_LedBar_8(0); /* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 6:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 			Toggle_LedBar_7(0); /* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 5:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 			Toggle_LedBar_6(0); /* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 4:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 			Toggle_LedBar_5(0); /* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 3:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 			Toggle_LedBar_4(0); /* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 2:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 			Toggle_LedBar_3(0); /* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 1:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
 			Toggle_LedBar_2(0); /* Toggle output on port D0 (blue LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			break;
 
 		case 0:
-			while (0 == (LPIT0->MSR & LPIT_MSR_TIF0_MASK)) {} /* Wait for LPIT0 CH0 Flag */
-			lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-			//PTD->PSOR |= 1<<16; /* Toggle output on port D16 (green LED) */
 			Toggle_LedBar_1(0); /* Toggle output on port D16 (green LED) */
-			LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
 			switch_flag=-1;
 			break;
 
@@ -339,6 +265,4 @@ void default_Leds(int led) {
 	}
 
 }
-
-
  /* Notice: the file ends with a blank new line to avoid compiler warnings */
