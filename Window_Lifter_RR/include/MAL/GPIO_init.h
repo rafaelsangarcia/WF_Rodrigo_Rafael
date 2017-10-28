@@ -35,8 +35,6 @@
 /*----------------------------------------------------------------------------*/
 /*  Rodrigo Mortera     |         61f508b   | 1.-15 Port definitions (Output Leds,and input ports of push button) */
 /*						|				    | 2.-Prototype funtions for ports, disable and for enable the timers.   */
-/*----------------------------------------------------------------------------*/
-/* Rodrigo Mortera      |         2         | Update Naming Conventions       */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -75,13 +73,12 @@
 /* Constants and types */
 /*typedef unsigned int u32_t;//hola=Lpit0_ch1, contador, Lpit0_ch0
 typedef signed int 32_t;//counter*/
-typedef unsigned int T_U32;
 /*============================================================================*/
 /* Exported Variables */
 /*============================================================================*/
 /* Exported functions prototypes */
-void malGPIO_init_void_PORT_init (void);
-void malGPIO_init_void_WDOG_disable (void);
-void malGPIO_init_void_LPIT0_init (void);
+void PORT_init (void);
+void WDOG_disable (void);
+void LPIT0_init (void);
 /*============================================================================*/
 #endif  /* Notice: the file ends with a blank new line to avoid compiler warnings */
