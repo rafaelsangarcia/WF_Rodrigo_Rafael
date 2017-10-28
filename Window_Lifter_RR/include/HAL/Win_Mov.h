@@ -33,7 +33,9 @@
 /*============================================================================*/
 /*  Author         	   |        Version     | Descritpion											*/
 /*----------------------------------------------------------------------------*/
-/*    Rafael Sanchez   |     e22ee1c (v2)   |  Create the Prototypes functions*/
+/*    Rafael Sanchez   |          1         |  Create the Prototypes functions*/
+/*----------------------------------------------------------------------------*/
+/* Rodrigo Mortera      |         2         | Update Naming Conventions       */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -69,6 +71,7 @@ typedef int s32_t;//counter*/
 #define LedBar_10 14*/
 /*============================================================================*/
 /* Constants and types */
+typedef unsigned int T_U32;
 /*============================================================================*/
 /* Exported Variables */
 /*============================================================================*/
@@ -85,22 +88,22 @@ typedef int s32_t;//counter*/
 //void clear_GPIO();
 //int validation_10ms();
 //int validation_500ms();
-void init_primary_function();
-void Toggle_BlueLed(int);
-void Toggle_GreenLed(int);
-void Toggle_LedBar_1(int);
-void Toggle_LedBar_2(int);
-void Toggle_LedBar_3(int);
-void Toggle_LedBar_4(int);
-void Toggle_LedBar_5(int);
-void Toggle_LedBar_6(int);
-void Toggle_LedBar_7(int);
-void Toggle_LedBar_8(int);
-void Toggle_LedBar_9(int);
-void Toggle_LedBar_10(int);
-int Validate_UpButton();
-int Validate_DownButton();
-int Validate_Antipinch();
+void halWinMov_void_ToggleBlueLed(int);
+void halWinMov_void_ToggleGreenLed(T_U32);
+void halWinMov_void_ToggleRedLed(T_U32);
+void halWinMov_void_ToggleLedBar1(T_U32);
+void halWinMov_void_ToggleLedBar2(T_U32);
+void halWinMov_void_ToggleLedBar3(T_U32);
+void halWinMov_void_ToggleLedBar4(T_U32);
+void halWinMov_void_ToggleLedBar5(T_U32);
+void halWinMov_void_ToggleLedBar6(T_U32);
+void halWinMov_void_ToggleLedBar7(T_U32);
+void halWinMov_void_ToggleLedBar8(T_U32);
+void halWinMov_void_ToggleLedBar9(T_U32);
+void halWinMov_void_ToggleLedBar10(T_U32);
+T_U32 halWinMov_u32_ValidateUpButton();
+T_U32 halWinMov_u32_ValidateDownButton();
+T_U32 halWinMov_u32_ValidateAntipinch();
 
 /*============================================================================*/
 
