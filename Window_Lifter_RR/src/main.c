@@ -141,11 +141,13 @@ void main_void_behaviorDown(){
     if(appUpDown_u32_validation500ms() == 0){
       main_void_oneTouchDown();
     }
+    else {}
   }
   else {
     if(appUpDown_u32_validation500ms() == 1){
     	appUpDown_void_ManualDown();
     }
+    else{}
   }
 }
 void main_void_antiPinch(){
