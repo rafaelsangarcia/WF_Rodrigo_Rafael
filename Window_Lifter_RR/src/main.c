@@ -12,10 +12,7 @@
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
 /** \file
-    short description in one sentence end with dot.
-    detailed
-    multiline
-    description of the file
+    This is the main.c file
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -34,9 +31,11 @@
 /*============================================================================*/
 /*  Author                          |       Version     | Description         */
 /*----------------------------------------------------------------------------*/
-/* Rodrigo		                    | 61f508b        |   1.-Added GPIO_init library */
+/* Rodrigo		                    | 		1        |   1.-Added GPIO_init library */
 /*									|				 |   2.-Added  for ports, disable */
-/*									|			   	 |   and for enabling the timer functions   */
+/*									|			   	 |   and for enabling the timer functions*/
+/*-----------------------------------------------------------------------------*/
+/*Rodrigo                           |       2        |  Update Naming Conventions*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -50,127 +49,120 @@
 /* Constants and types  */
 /*============================================================================*/
 /* Variables */
-extern int switch_flag;
-extern int lpit0_ch0_flag_counter;
-extern int lpit0_ch1_flag_counter;
-
-int flag = 0;
-int temp = 0;
+extern T_S32 s32_switch_flag;
+extern T_U32 u32_lpit0_ch0_flag_counter;
+extern T_U32 u32_lpit0_ch1_flag_counter;
+T_U32 u32_flag = 0;
+T_S32 s32_temp = 0;
 /*============================================================================*/
 /* Private functions prototypes */
-void OneTouch_UP();
-void OneTouch_Down();
-void behavior_UP();
-void behavior_Down();
-void antiPinch();
-void idleState();
-
+void main_void_oneTouchUp();
+void main_void_oneTouchDown();
+void main_void_behaviorUp();
+void main_void_behaviorDown();
+void main_void_antiPinch();
+void main_void_idleState();
 /*============================================================================*/
+
 /* Inline functions */
-int main(void) {
+T_U32 main(void) {
 	/*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
   #ifdef PEX_RTOS_INIT
   	PEX_RTOS_INIT();                   /* Initialization of the selected RTOS. Macro is defined by the RTOS component. */
   #endif
 	/*** End of Processor Expert internal initialization.                    ***/
-
-
-	//init_primary_function();
-	WDOG_disable();
-	PORT_init(); /* Configure ports */
+  	malGPIO_init_void_WDOG_disable();
+  	malGPIO_init_void_PORT_init(); /* Configure ports */
 	SOSC_init_8MHz(); /* Initialize system oscillator for 8 MHz xtal */
 	SPLL_init_160MHz(); /* Initialize sysclk to 160 MHz with 8 MHz SOSC */
 	NormalRUNmode_80MHz(); /* Init clocks: 80 MHz sysclk & core, 40 MHz bus, 20 MHz flash */
-	LPIT0_init(); /* Initialize PIT0 for 1 second timeout */
-	lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
-	clear_GPIO(); //clear PORTS
-
+	malGPIO_init_void_LPIT0_init(); /* Initialize PIT0 for 1 second timeout */
+	u32_lpit0_ch0_flag_counter++; /* Increment LPIT0 timeout counter */
+	appUpDown_void_clearGPIO(); //clear PORTS
 
 	for (;;) {
-		if(Push_UpButton() == 1){
-			timer();
-			if(validation_10ms() == 1){
-        behavior_UP();
+		if(appUpDown_u32_PushUpButton() == 1){
+			appUpDown_void_timer1();
+			if(appUpDown_u32_validation10ms() == 1){
+        main_void_behaviorUp();
 			}
 		}
-		if (flag == 1){
-      antiPinch();
+		if (u32_flag == 1){
+      main_void_antiPinch();
 		}
-		if(Push_DownButton() == 1){
-		  timer();
-			if(validation_10ms() == 1){
-        behavior_Down();
+		if(appUpDown_u32_PushDownButton() == 1){
+			appUpDown_void_timer1();
+			if(appUpDown_u32_validation10ms() == 1){
+        main_void_behaviorDown();
 			}
 		}
-		if (Push_DownButton() == 0 && Push_UpButton() == 0) {
-			idleState();
+		if (appUpDown_u32_PushDownButton() == 0 && appUpDown_u32_PushUpButton() == 0) {
+			main_void_idleState();
 		}
   }
+	return 0;
 }
-
-
 /*============================================================================*/
 /* Private functions */
-void OneTouch_UP(){
-  temp = switch_flag;
-  while(temp < 9){
-    Manual_up();
-    if(Push_Antipinch() == 1){
-      default_Leds(3);
-      temp = 9;
-      flag = 1;
+void main_void_oneTouchUp(){
+  s32_temp = s32_switch_flag;
+  while(s32_temp < 9){
+	  appUpDown_void_ManualUp();
+    if(appUpDown_u32_PushAntipinch() == 1){
+    	appUpDown_void_default_Leds(3);
+      s32_temp = 9;
+      u32_flag = 1;
     }
     else {
-      temp = switch_flag;
-      flag = 0;
+      s32_temp = s32_switch_flag;
+      u32_flag = 0;
     }
   }
 }
-void OneTouch_Down(){
-  while(switch_flag >=0){
-    Manual_down();
+void main_void_oneTouchDown(){
+  while(s32_switch_flag >=0){
+	  appUpDown_void_ManualDown();
   }
 }
-void behavior_UP(){
-  if( Push_UpButton() == 0 ){ //up_off
-    if(validation_500ms() == 0){
-      OneTouch_UP();
+void main_void_behaviorUp(){
+  if( appUpDown_u32_PushUpButton() == 0 ){ //up_off
+    if(appUpDown_u32_validation500ms() == 0){
+      main_void_oneTouchUp();
     }
    }
   else{
-    if(validation_500ms() == 1){
-      Manual_up();
+    if(appUpDown_u32_validation500ms() == 1){
+    	appUpDown_void_ManualUp();
     }
   }
 }
-void behavior_Down(){
-  if( Push_DownButton() == 0 ){ //up_off
-    if(validation_500ms() == 0){
-      OneTouch_Down();
+void main_void_behaviorDown(){
+  if( appUpDown_u32_PushDownButton() == 0 ){ //up_off
+    if(appUpDown_u32_validation500ms() == 0){
+      main_void_oneTouchDown();
     }
   }
   else {
-    if(validation_500ms() == 1){
-        Manual_down();
+    if(appUpDown_u32_validation500ms() == 1){
+    	appUpDown_void_ManualDown();
     }
   }
 }
-void antiPinch(){
-  OneTouch_Down();
-  default_Leds(0);
-  flag = 0;
-  lpit0_ch1_flag_counter = 0;
-  while (lpit0_ch1_flag_counter <= 5000){
-    timer();
+void main_void_antiPinch(){
+  main_void_oneTouchDown();
+  appUpDown_void_default_Leds(0);
+  u32_flag = 0;
+  u32_lpit0_ch1_flag_counter = 0;
+  while (u32_lpit0_ch1_flag_counter <= 5000){
+	  appUpDown_void_timer1();
   }
-  lpit0_ch1_flag_counter = 0;
+  u32_lpit0_ch1_flag_counter = 0;
 }
-void idleState(){
-  default_Leds(0);
-  lpit0_ch1_flag_counter = 0;
+void main_void_idleState(){
+	appUpDown_void_default_Leds(0);
+  u32_lpit0_ch1_flag_counter = 0;
 }
 /*============================================================================*/
-
 /** Check if action is allowed by overload protection.
  To avoid overheating of the door locking motors and hardware failure
  the software shall limit the number of activations in a short period.
@@ -180,5 +172,4 @@ void idleState(){
 */
 /* Exported functions */
 /*============================================================================*/
-
  /* Notice: the file ends with a blank new line to avoid compiler warnings */
