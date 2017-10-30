@@ -65,7 +65,7 @@ void main_void_idleState();
 /*============================================================================*/
 
 /* Inline functions */
-int main(void) {
+T_U32 main(void) {
 	/*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
   #ifdef PEX_RTOS_INIT
   	PEX_RTOS_INIT();                   /* Initialization of the selected RTOS. Macro is defined by the RTOS component. */

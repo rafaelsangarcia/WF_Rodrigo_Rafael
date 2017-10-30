@@ -88,7 +88,7 @@ typedef unsigned int T_U32;
 //void clear_GPIO();
 //int validation_10ms();
 //int validation_500ms();
-void halWinMov_void_ToggleBlueLed(int);
+void halWinMov_void_ToggleBlueLed(T_U32);
 void halWinMov_void_ToggleGreenLed(T_U32);
 void halWinMov_void_ToggleRedLed(T_U32);
 void halWinMov_void_ToggleLedBar1(T_U32);
